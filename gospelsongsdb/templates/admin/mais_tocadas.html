@@ -1,0 +1,40 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+		<h3 class="panel-title">M&uacute;sicas mais tocadas</h3>
+	</div>
+	<div>
+	<p>Selecione a m&uacute;sica:
+	<form action="" method="post">{% csrf_token %}
+		<select name="musica">
+		{% for q in musicas %}
+  			<option value={{ q.id }}>{{ q.name }}</option>
+  		{% endfor%}
+  		</select>
+  	</p>
+	<p>Esta m&uacute;sica foi tocada nos seguintes cultos:</p>
+	<table class="table">
+			<tr>
+				<th>M&uacute;sica</th>
+				<th>Culto</th>
+				<th>Dado</th>
+				<th>Tabela</th>
+				<th>Data</th>
+			</tr>
+	{% for linha in mais_tocadas %}
+		<tr>
+		<td>{{ linha.name }}</td><td> {{ linha.date }} </td><td> {{ linha.object_repr }}</td><td>{{ linha.model }}</td><td>{{ linha.action_time }}</td>
+		</tr>
+	{% endfor %}
+	</table>
+	<button type="submit" name="pesquisar" class="btn btn-primary"> <span class="glyphicon" aria-hidden="true"> </span>Pesquisar</button>
+	{% for q in musicas %}
+	<input type="hidden" name="nomemusica" value="{{ q.id }}" />
+	{% endfor%}
+	</form>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+		<h3 class="panel-title">Log</h3>
+	</div>
+	<div>
+	<p>Registro de altera&ccedil;&otilde;es:</p>
+	<table class="table">
+			<tr>
+				<th>Usuario</th>
+				<th>Acao</th>
+				<th>Dado</th>
+				<th>Tabela</th>
+				<th>Data</th>
+			</tr>
+	{% for linha in logs %}
+		<tr>
+		<td>{{ linha.username }}</td><td> {% if linha.action_flag = 1 %} {% with acao="incluiu" %} {{ acao }} {% endwith %} {% elif linha.action_flag = 2 %} {% with acao="alterou" %} {{ acao }} {% endwith %} {% else %} {% with acao="excluiu" %} {{ acao }} {% endwith %} {% endif %}</td><td> {{ linha.object_repr }}</td><td>{{ linha.model }}</td><td>{{ linha.action_time }}</td>
+		</tr>
+	{% endfor %}
+</div>
+</div>
+
+{% endblock %}
