@@ -5,6 +5,9 @@ from django.utils.translation import ugettext_lazy
 
 from gospelsongsdb.models import Campi, Culto, Musica
 
+from django import forms
+from better_filter_widget import BetterFilterWidget
+
 # admin.site.site_title = ugettext_lazy('CEU Min. de Louvor')
 # admin.site.site_header = ugettext_lazy('CEU Min. de Louvor')
 # admin.site.index_title = ugettext_lazy('Administracao do CEU Min. de Louvor')
@@ -26,6 +29,15 @@ class MusicaAdmin(admin.ModelAdmin):
     ordering = ['name']
 admin.site.register(Musica, MusicaAdmin)
 
+class CultoForm(forms.ModelForm):
+
+    class Meta(object):
+        model = Culto
+        fields = '__all__'
+        widgets = {
+            'musicas': BetterFilterWidget(),
+        }
+
 class CultoAdmin(admin.ModelAdmin):
     filter_horizontal = ('musicas',)
 #     formfield_overrides = {
@@ -36,4 +48,7 @@ class CultoAdmin(admin.ModelAdmin):
     _fields=['date', 'campi']
     list_display = _fields
     list_display_links = list_display
+    
+    form = CultoForm
+    
 admin.site.register(Culto, CultoAdmin)

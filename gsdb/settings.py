@@ -34,6 +34,7 @@ INSTALLED_APPS = (
     'gospelsongsdb',
     'bootstrap3',
     'django_admin_bootstrapped',
+    'better_filter_widget',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
